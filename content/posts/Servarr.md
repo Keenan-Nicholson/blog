@@ -7,7 +7,7 @@ draft = false
 
 About two years ago, a friend found half a dozen ThinkStation P330 Tiny for sale by a local CAD company that was upgrading their machines. $130 and a fresh install of Ubuntu Server later I was the proud owner of my first home server and, as I would soon come to find out, constant source of stress.
 
-My first attempt at a media stack included Jellyfin, Radarr, Transmission, and Jackett. It was outdated, unreliable, and slow—and it lacked a VPN. Frustrated with downloads taking two weeks for a 2GB movie, I eventually gave up. After moving apartments, my little ThinkStation ended up sitting in a closet for nearly a year and a half. That is, until I recently decided to take a break from doomscrolling social media. Boredom turned into productivity, and I decided to try again -- this time with a more up-to-date stack and a bit more patience.
+My first attempt at a media stack included Jellyfin, Radarr, Transmission, and Jackett. It was outdated, unreliable, and slow—and it lacked a VPN. Frustrated with downloads taking two weeks for a 2GB movie, I eventually gave up. After moving apartments, my little ThinkStation ended up sitting in a closet for nearly a year and a half. That is, until I recently decided to take a break from doomscrolling social media. Boredom turned into productivity, and so I gave it a second shot -- this time with a more up-to-date stack and a bit more patience.
 
 After a couple weeks of reading docs, reddit posts, blogs, and forums I am finally satisified with my Servarr setup and thought I would share my experience in case anyone runs into similar roadblocks while setting up their own media stack.
 
@@ -67,7 +67,7 @@ I connected it to Prowlarr, and tried to add an indexer that required it. This s
 
 So after all my efforts, I decided to scrap all hopes of using Flaresolverr tagged indexers.
 
-My next hiccup was having Prowlarr passed to my VPN. Although this is the default setting in navilg's guide, I do not believe it to be correct. All of my indexers would fail almost immediately after restarting the container, so I started digging into logs. After inspecting both Docker and *arr logs there was _a lot_ `HTTP request timed out` and `HTTP 429: TooManyRequests` errors. 
+My next hiccup was having Prowlarr passed to my VPN. Although this is the default setting in navilg's guide, I do not believe it to be correct. All of my indexers would fail almost immediately after restarting the container, so I started digging into logs. After inspecting both Docker and *arr logs there was _a lot_ of `HTTP request timed out` and `HTTP 429: TooManyRequests` errors. 
 
 I knew this was likely due to my VPN configuration, but no matter what I did (e.g. changing DNS to `1.1.1.1` or `8.8.8.8` in the VPN, containers, dropping the firewall all together, and becoming all too familiar with <a href="https://github.com/qdm12/gluetun" target="_blank">Gluetun</a> documentation) I just couldn't get it. 
 
@@ -94,9 +94,9 @@ You can improve your speeds more by port forwarding either via your router (if y
 
 I recently upgraded from Proton VPN free tier to Proton VPN Plus to do this, but have not got around to it yet. Apparently my motivation comes from frustration, and my downloads are fast enough for me at the moment. However, if you choose to go this route Proton has a <a href="https://protonvpn.com/support/port-forwarding#qbittorrent" target="_blank">guide to enable port forwarding in your qBittorrent client</a>.
 
-This may not belong under improvements, but for myself, I dislike the default mounting points that the `docker-compose.yml` provided by navilg has. I opted to migrate these to bind mounts just for ease of access. If set your mounts from the get-go, just set your path to be whatever you like (e.g. `./volumes`). However if you are migrating like I did you will need to change the host mounting point in your `docker-compose.yml` to something like `/home/user/jellyfin/volumes/media-stack_{volumename}/_data` and delete the `volumes:` at the bottom of the file. Note the `_data`. since you are migrating with I assume something like `cp -r /var/lib/docker/volumes/media-stack_* /home/user/jellyfin/volumes`, all the files will be nested behind `_data` default by Docker.
+This may not belong under improvements, but for myself, I dislike the default mounting points that the `docker-compose.yml` provided by navilg has. I opted to migrate these to bind mounts just for ease of access. If you set your mounts from the get-go, just set your path to be whatever you like (e.g. `./volumes`). However if you are migrating like I did you will need to change the host mounting point in your `docker-compose.yml` to something like `/home/user/jellyfin/volumes/media-stack_{volumename}/_data` and delete the `volumes:` at the bottom of the file. Note the `_data` directory. Since you are migrating with I assume something like `cp -r /var/lib/docker/volumes/media-stack_* /home/user/jellyfin/volumes`, all the files will be nested behind `_data` default by Docker.
 
-You will also need to delete the volumes from the bottom of your `docker-compose.yml`
+You will also need to delete the volumes from the bottom of your `docker-compose.yml`.
 
 ```yaml
 volumes:
@@ -111,7 +111,7 @@ volumes:
 
 ### Using Ubuntu?
 
-If you are using Ubuntu you may run into storage issues. I only had 98gb free which, at first, I thought was some limit on the `torrent-downloads` mount or a restriction in my root partition.
+If you are using Ubuntu you may be facing a lack of storage space. I only had 98gb free which, at first, I thought was some limit on the `torrent-downloads` mount or a restriction in my root partition.
 
 I ran `lsblk` to find out Ubuntu only allocated 100GB to your root filesystem.
 
