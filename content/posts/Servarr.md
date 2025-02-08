@@ -28,7 +28,7 @@ The guide also has instructions for how to configure Ngnix if you wish to host J
 
 ## Getting Started
 
-Following the guide by navilg, I got my Docker network set up, cloned the `docker-compose.yml`, filled out the necessary environment variables and followed the inline comments to configure the settings for the VPN profile. Most gudies recommend **against** using the latest version of the Docker images to avoid incompatibility, but I have never ran into and issue with this while using this stack, so I changed all the image versions to `:latest`.
+Following the guide by navilg, I got my Docker network set up, cloned the `docker-compose.yml`, filled out the necessary environment variables and followed the inline comments to configure the settings for the VPN profile. Most guides recommend **against** using the latest version of the Docker images to avoid incompatibility, but I have never ran into and issue with this while using this stack, so I changed all the image versions to `:latest`.
 
 For my VPN I chose <a href="https://protonvpn.com/free-vpn" target="_blank">Proton VPN's free tier</a> which does the job well as long as you don't care about port forwarding (we will cover this later). Just make sure you have uncommented `FREE_ONLY=on` in the `docker-compose.yml` and set your country to either Netherlands, United States, or Japan.
 

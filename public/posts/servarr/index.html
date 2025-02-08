@@ -453,7 +453,7 @@ My first attempt at a media stack included Jellyfin, Radarr, Transmission, and J
     Getting Started
 </div>
 </h2>
-<p>Following the guide by navilg, I got my Docker network set up, cloned the <code>docker-compose.yml</code>, filled out the necessary environment variables and followed the inline comments to configure the settings for the VPN profile. Most gudies recommend <strong>against</strong> using the latest version of the Docker images to avoid incompatibility, but I have never ran into and issue with this while using this stack, so I changed all the image versions to <code>:latest</code>.</p>
+<p>Following the guide by navilg, I got my Docker network set up, cloned the <code>docker-compose.yml</code>, filled out the necessary environment variables and followed the inline comments to configure the settings for the VPN profile. Most guides recommend <strong>against</strong> using the latest version of the Docker images to avoid incompatibility, but I have never ran into and issue with this while using this stack, so I changed all the image versions to <code>:latest</code>.</p>
 <p>For my VPN I chose <a href="https://protonvpn.com/free-vpn" target="_blank">Proton VPN&rsquo;s free tier</a> which does the job well as long as you don&rsquo;t care about port forwarding (we will cover this later). Just make sure you have uncommented <code>FREE_ONLY=on</code> in the <code>docker-compose.yml</code> and set your country to either Netherlands, United States, or Japan.</p>
 <p>After finishing the initial setup, I now had all my services configured and running locally. We can now get into some of the aforementioned roadblocks.</p>
 <h2 id="keep-it-simple-stupid" >
