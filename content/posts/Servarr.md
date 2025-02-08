@@ -1,6 +1,6 @@
 +++
 title = 'An Imbeciles Guide to Servarr'
-date = 2024-02-08
+date = 2025-02-08
 draft = false
 +++
 ## Introduction
