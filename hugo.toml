@@ -1,0 +1,15 @@
+baseURL = "https://blog.pirated.tech"
+languageCode = "en-us"
+theme = "anubis2"
+title = "Pirated Tech"
+
+[params.author]
+name = "Keeborg"
+
+[markup.goldmark.renderer]
+unsafe = true # true | false; Enable unsafe mode to have a better experience
+
+[markup.highlight]
+style = 'base16-snazzy' # Chroma style, find more at here: https://swapoff.org/chroma/playground/
+
+
