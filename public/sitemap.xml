@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-        <loc>https://blog-eyb.pages.dev/</loc>
-        <lastmod>2024-01-14T07:07:07+01:00</lastmod>
+        <loc>https://blog.pirated.tech/</loc>
+        <lastmod>2024-02-08T00:00:00+00:00</lastmod>
       </url><url>
-        <loc>https://blog-eyb.pages.dev/posts/</loc>
-        <lastmod>2024-01-14T07:07:07+01:00</lastmod>
+        <loc>https://blog.pirated.tech/posts/</loc>
+        <lastmod>2024-02-08T00:00:00+00:00</lastmod>
       </url><url>
-        <loc>https://blog-eyb.pages.dev/categories/</loc>
+        <loc>https://blog.pirated.tech/categories/</loc>
       </url><url>
-        <loc>https://blog-eyb.pages.dev/tags/</loc>
+        <loc>https://blog.pirated.tech/tags/</loc>
       </url>
 </urlset>

@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer-when-downgrade">
 
-<title>My First Post - Pirated Tech</title>
+<title>An Imbeciles Guide to Servarr - Pirated Tech</title>
 
 <meta name="description" content="
 
@@ -20,8 +20,8 @@
     Introduction
 
 
-This is bold text, and this is emphasized text.
-Visit the Hugo website!">
+About two years ago, a friend found half a dozen ThinkStation P330 Tiny for sale by a local CAD company that was upgrading their machines. $130 and a fresh install of Ubuntu Server later I was the proud owner of my first home server and, as I would soon come to find out, constant source of stress.
+My first attempt at a media stack included Jellyfin, Radarr, Transmission, and Jackett. It was outdated, unreliable, and slow—and it lacked a VPN. Frustrated with downloads taking two weeks for a 2GB movie, I eventually gave up. After moving apartments, my little ThinkStation ended up sitting in a closet for nearly a year and a half. That is, until I recently decided to take a break from doomscrolling social media. Boredom turned into productivity, and I decided to try again &ndash; this time with a more up-to-date stack and a bit more patience.">
 
 
 
@@ -71,7 +71,7 @@ Visit the Hugo website!">
     
 
     
-        <link rel="stylesheet" href="/css/style.4c42aa0abeac804c4933c54677c449cea1f723caae778425d031e98565a0cdef.css" integrity="sha256-TEKqCr6sgExJM8VGd8RJzqH3I8qud4Ql0DHphWWgze8=">
+        <link rel="stylesheet" href="/css/style.4b935438cadf954217d82b7b68848bd13b483e707cad30317d3499e32377125e.css" integrity="sha256-S5NUOMrflUIX2Ct7aISL0TtIPnB8rTAxfTSZ4yN3El4=">
     
 
 
@@ -326,7 +326,7 @@ Visit the Hugo website!">
     <article class="post h-entry">
         <div class="post-header">
             <header>
-                <h1 class="p-name post-title draft">My First Post</h1>
+                <h1 class="p-name post-title draft">An Imbeciles Guide to Servarr</h1>
                 
 
             </header>
@@ -337,7 +337,7 @@ Visit the Hugo website!">
 <div class="post-info noselect">
     
         <div class="post-date dt-published">
-            <time datetime="2024-01-14">2024-01-14</time>
+            <time datetime="2024-02-08">2024-02-08</time>
             
         </div>
     
@@ -370,6 +370,16 @@ Visit the Hugo website!">
     <div class="inner"><nav id="TableOfContents">
   <ul>
     <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#media-stack">Media Stack</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#keep-it-simple-stupid">Keep it Simple, Stupid!</a></li>
+    <li><a href="#improvements">Improvements</a>
+      <ul>
+        <li><a href="#using-ubuntu">Using Ubuntu?</a></li>
+      </ul>
+    </li>
+    <li><a href="#afterthoughts">Afterthoughts</a></li>
+    <li><a href="#appendix">Appendix</a></li>
   </ul>
 </nav></div>
   </details>
@@ -404,8 +414,359 @@ Visit the Hugo website!">
     Introduction
 </div>
 </h2>
-<p>This is <strong>bold</strong> text, and this is <em>emphasized</em> text.</p>
-<p>Visit the <a href="https://gohugo.io">Hugo</a> website!</p>
+<p>About two years ago, a friend found half a dozen ThinkStation P330 Tiny for sale by a local CAD company that was upgrading their machines. $130 and a fresh install of Ubuntu Server later I was the proud owner of my first home server and, as I would soon come to find out, constant source of stress.</p>
+<p>My first attempt at a media stack included Jellyfin, Radarr, Transmission, and Jackett. It was outdated, unreliable, and slow—and it lacked a VPN. Frustrated with downloads taking two weeks for a 2GB movie, I eventually gave up. After moving apartments, my little ThinkStation ended up sitting in a closet for nearly a year and a half. That is, until I recently decided to take a break from doomscrolling social media. Boredom turned into productivity, and I decided to try again &ndash; this time with a more up-to-date stack and a bit more patience.</p>
+<p>After a couple weeks of reading docs, reddit posts, blogs, and forums I am finally satisified with my Servarr setup and thought I would share my experience in case anyone runs into similar roadblocks while setting up their own media stack.</p>
+<p>You can find my entire <code>docker-compose.yml</code> and any other configs I used in the <a href="#appendix">appendix</a> at the end of this article.</p>
+<h2 id="media-stack" >
+<div>
+    <a href="#media-stack">
+        #
+    </a>
+    Media Stack
+</div>
+</h2>
+<p>Not knowing exactly where to begin, I did some snooping and eventually found a popular guide by <a href="https://github.com/navilg" target="_blank">navilg</a>. This easy to follow guide got the ball rolling with a dockerized media stack consisting of:</p>
+<ul>
+<li>Jellyfin,</li>
+<li>Jellyseerr,</li>
+<li>Radarr,</li>
+<li>Sonarr,</li>
+<li>Prowlarr,</li>
+<li>qBittorrent,</li>
+<li>and VPN config.</li>
+</ul>
+<p>The guide also has instructions for how to configure Ngnix if you wish to host Jellyfin externally, but I chose to just have a local setup.</p>
+<h2 id="getting-started" >
+<div>
+    <a href="#getting-started">
+        #
+    </a>
+    Getting Started
+</div>
+</h2>
+<p>Following the guide by navilg, I got my Docker network set up, cloned the <code>docker-compose.yml</code>, filled out the necessary environment variables and followed the inline comments to configure the settings for the VPN profile. Most gudies recommend <strong>against</strong> using the latest version of the Docker images to avoid incompatibility, but I have never ran into and issue with this while using this stack, so I changed all the image versions to <code>:latest</code>.</p>
+<p>For my VPN I chose <a href="https://protonvpn.com/free-vpn" target="_blank">Proton VPN&rsquo;s free tier</a> which does the job well as long as you don&rsquo;t care about port forwarding (we will cover this later). Just make sure you have uncommented <code>FREE_ONLY=on</code> in the <code>docker-compose.yml</code> and set your country to either Netherlands, United States, or Japan.</p>
+<p>After finishing the initial setup, I now had all my services configured and running locally. We can now get into some of the aforementioned roadblocks.</p>
+<h2 id="keep-it-simple-stupid" >
+<div>
+    <a href="#keep-it-simple-stupid">
+        #
+    </a>
+    Keep it Simple, Stupid!
+</div>
+</h2>
+<p>My first mistake was wanting to access as many indexers as I could to increase my chances of getting my grubby little hands on as many free movies as possible. This approach required a Flaresolverr proxy configuration as many indexers are protected by Cloudflare DDoS Protection. So, I added Flaresolverr to my <code>docker-compose.yml</code> and tried to traffic it through my VPN.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff6ac1">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff6ac1">flaresolverr</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">image</span>: ghcr.io/flaresolverr/flaresolverr:latest
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">container_name</span>: flaresolverr
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">environment</span>:
+</span></span><span style="display:flex;"><span>      - LOG_LEVEL=info
+</span></span><span style="display:flex;"><span>      - LOG_HTML=false
+</span></span><span style="display:flex;"><span>      - CAPTCHA_SOLVER=none
+</span></span><span style="display:flex;"><span>      - TZ=UTC
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#5af78e">&#34;8191:8191&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">restart</span>: unless-stopped
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">network_mode</span>: service:vpn
+</span></span></code></pre></div><p>I connected it to Prowlarr, and tried to add an indexer that required it. This started a multi-day hair pulling exercise in learning about DNS settings and Docker networking as I fought for my life to try to solve the error <code>Unable to connect to indexer, please check your DNS settings and ensure IPv6 is working or disabled</code>. After questioning friends with more Docker and networking experience than myself to no avail, I finally joined the <a href="https://discord.com/invite/8Dbsx35rrx" target="_blank">Servarr Discord</a> where I was informed that Flaresolverr has been in shambles since Cloudflare developers have been keeping an eye on it.</p>
+<blockquote>
+<p>Flaresolverr is currently BROKEN. The Cloudflare devs are watching the repo and so it is very likely permanently dead.</p>
+<p>Also, we are not the Flaresolverr support team and cannot help you with questions that don&rsquo;t relate specifically to adding Flaresolverr to Prowlarr.</p>
+<p>Flaresolverr is a 3rd party program which solves cloudflare captchas for some indexers.
+They use Github for support, and you should go there to ask them questions or catch up on the current status of the program.</p>
+<p>The current open issue on their github is: FlareSolverr/FlareSolverr#1253&quot;</p></blockquote>
+<p>So after all my efforts, I decided to scrap all hopes of using Flaresolverr tagged indexers.</p>
+<p>My next hiccup was having Prowlarr passed to my VPN. Although this is the default setting in navilg&rsquo;s guide, I do not believe it to be correct. All of my indexers would fail almost immediately after restarting the container, so I started digging into logs. After inspecting both Docker and *arr logs there was <em>a lot</em> <code>HTTP request timed out</code> and <code>HTTP 429: TooManyRequests</code> errors.</p>
+<p>I knew this was likely due to my VPN configuration, but no matter what I did (e.g. changing DNS to <code>1.1.1.1</code> or <code>8.8.8.8</code> in the VPN, containers, dropping the firewall all together, and becoming all too familiar with <a href="https://github.com/qdm12/gluetun" target="_blank">Gluetun</a> documentation) I just couldn&rsquo;t get it.</p>
+<p>I finally just decided I had to get rid of the VPN and risk getting some threatening mail from my ISP when a friend mentioned that you dont <em>need</em> to have Prowlarr networked through your VPN. It turns out he was right! Although interacting with indexers is a bit shady, its not really illegal. As long as you have your download client handled by the VPN you should be fine. So, I got rid of <code>network_mode: service:vpn</code> for <code>mynetwork</code>, assigned it a static ipv4 address, et voilà, I had functioning indexers!</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>  <span style="color:#ff6ac1">prowlarr</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">profiles</span>: [<span style="color:#5af78e">&#34;vpn&#34;</span>, <span style="color:#5af78e">&#34;no-vpn&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">container_name</span>: prowlarr
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">image</span>: linuxserver/prowlarr:latest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">networks</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff6ac1">mynetwork</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">ipv4_address</span>: <span style="color:#ff9f43">172.20.0.40</span>
+</span></span></code></pre></div><h2 id="improvements" >
+<div>
+    <a href="#improvements">
+        #
+    </a>
+    Improvements
+</div>
+</h2>
+<p>You should now have a functioning media stack, but if your experience is anything like mine, your torrents are downloading slower than molasses in winter.</p>
+<p>I found a <a href="https://www.reddit.com/r/qBittorrent/comments/fvpeib/comment/fmk3yh6/">reddit post</a> by u/WankWankNudgeNudge and after following their suggestions and giving qBittorrent 4GB of ram instead of the default 512MB, my downloading speeds went from about 1% <em>per day</em> to a finishing whole 30GB file in under an hour.</p>
+<p>You can improve your speeds more by port forwarding either via your router (if you aren&rsquo;t using the VPN profile) or through your VPN. Port forwarding is not <em>required</em> but if you do not do it, you are restricting yourself to only connecting to peers who <em>do</em>.</p>
+<p>I recently upgraded from Proton VPN free tier to Proton VPN Plus to do this, but have not got around to it yet. Apparently my motivation comes from frustration, and my downloads are fast enough for me at the moment. However, if you choose to go this route Proton has a <a href="https://protonvpn.com/support/port-forwarding#qbittorrent" target="_blank">guide to enable port forwarding in your qBittorrent client</a>.</p>
+<p>This may not belong under improvements, but for myself, I dislike the default mounting points that the <code>docker-compose.yml</code> provided by navilg has. I opted to migrate these to bind mounts just for ease of access. If set your mounts from the get-go, just set your path to be whatever you like (e.g. <code>./volumes</code>). However if you are migrating like I did you will need to change the host mounting point in your <code>docker-compose.yml</code> to something like <code>/home/user/jellyfin/volumes/media-stack_{volumename}/_data</code> and delete the <code>volumes:</code> at the bottom of the file. Note the <code>_data</code>. since you are migrating with I assume something like <code>cp -r /var/lib/docker/volumes/media-stack_* /home/user/jellyfin/volumes</code>, all the files will be nested behind <code>_data</code> default by Docker.</p>
+<p>You will also need to delete the volumes from the bottom of your <code>docker-compose.yml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff6ac1">volumes</span>:
+</span></span><span style="display:flex;"><span> <span style="color:#ff6ac1">torrent-downloads</span>:
+</span></span><span style="display:flex;"><span> <span style="color:#ff6ac1">radarr-config</span>:
+</span></span><span style="display:flex;"><span> <span style="color:#ff6ac1">sonarr-config</span>:
+</span></span><span style="display:flex;"><span> <span style="color:#ff6ac1">prowlarr-config</span>:
+</span></span><span style="display:flex;"><span> <span style="color:#ff6ac1">jellyfin-config</span>:
+</span></span><span style="display:flex;"><span> <span style="color:#ff6ac1">qbittorrent-config</span>:
+</span></span><span style="display:flex;"><span> <span style="color:#ff6ac1">jellyseerr-config</span>:
+</span></span></code></pre></div><h3 id="using-ubuntu" >
+<div>
+    <a href="#using-ubuntu">
+        ##
+    </a>
+    Using Ubuntu?
+</div>
+</h3>
+<p>If you are using Ubuntu you may run into storage issues. I only had 98gb free which, at first, I thought was some limit on the <code>torrent-downloads</code> mount or a restriction in my root partition.</p>
+<p>I ran <code>lsblk</code> to find out Ubuntu only allocated 100GB to your root filesystem.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nvme0n1                   259:0    <span style="color:#ff9f43">0</span> 476.9G  <span style="color:#ff9f43">0</span> disk 
+</span></span><span style="display:flex;"><span>├─nvme0n1p1               259:1    <span style="color:#ff9f43">0</span>     1G  <span style="color:#ff9f43">0</span> part /boot/efi
+</span></span><span style="display:flex;"><span>├─nvme0n1p2               259:2    <span style="color:#ff9f43">0</span>     2G  <span style="color:#ff9f43">0</span> part /boot
+</span></span><span style="display:flex;"><span>└─nvme0n1p3               259:3    <span style="color:#ff9f43">0</span> 473.9G  <span style="color:#ff9f43">0</span> part 
+</span></span><span style="display:flex;"><span>  └─ubuntu--vg-ubuntu--lv 252:0    <span style="color:#ff9f43">0</span>   100G  <span style="color:#ff9f43">0</span> lvm  /
+</span></span></code></pre></div><p>I know, I need a bigger hard drive. Anyways, putting all my trust in ChatGPT I simply ran the following commands and gave <code>/</code> 100% of nvme0n1p3:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
+</span></span><span style="display:flex;"><span>sudo resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+</span></span></code></pre></div><h2 id="afterthoughts" >
+<div>
+    <a href="#afterthoughts">
+        #
+    </a>
+    Afterthoughts
+</div>
+</h2>
+<p>I am now <em>mostly</em> satisified with my media stack, however I still need to make a few tweaks such as port forwarding my VPN, and maybe one day implementing Ngnix so I can access Jellyfin outside of my home network.</p>
+<p>Overall, if you avoid overcomplicating and learn from my mistakes you should be watching your favourite shows and movies in no time.</p>
+<p><strong>Disclaimer</strong>: This article is for informational and educational purposes only. I do not condone or encourage copyright infringement, piracy, or any illegal activities. Users are solely responsible for ensuring that their actions comply with all applicable laws in their jurisdiction. I assume no liability for any misuse of the information provided. Proceed at your own risk.</p>
+<p>Have fun sailing the seven seas!</p>
+<h2 id="appendix" >
+<div>
+    <a href="#appendix">
+        #
+    </a>
+    Appendix
+</div>
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff6ac1">name</span>: media-stack
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff6ac1">vpn</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">profiles</span>: [<span style="color:#5af78e">&#34;vpn&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">container_name</span>: vpn
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">image</span>: qmcgaw/gluetun:latest
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">cap_add</span>:
+</span></span><span style="display:flex;"><span>      - NET_ADMIN
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">environment</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff6ac1">VPN_SERVICE_PROVIDER=protonvpn # Valid values</span>: nordvpn, expressvpn, protonvpn, surfshark or custom
+</span></span><span style="display:flex;"><span>      - OPENVPN_USER=&#34;&#34;
+</span></span><span style="display:flex;"><span>      - OPENVPN_PASSWORD=&#34;&#34;
+</span></span><span style="display:flex;"><span>      - SERVER_COUNTRIES=Canada
+</span></span><span style="display:flex;"><span>      <span style="color:#78787e">#- FREE_ONLY=on</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">networks</span>:
+</span></span><span style="display:flex;"><span>      - mynetwork
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">devices</span>:
+</span></span><span style="display:flex;"><span>      - /dev/net/tun:/dev/net/tun
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">5080</span>:<span style="color:#ff9f43">5080</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">6881</span>:<span style="color:#ff9f43">6881</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">6881</span>:<span style="color:#ff9f43">6881</span>/udp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">restart</span>: <span style="color:#5af78e">&#34;unless-stopped&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff6ac1">qbittorrent</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">profiles</span>: [<span style="color:#5af78e">&#34;vpn&#34;</span>, <span style="color:#5af78e">&#34;no-vpn&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">container_name</span>: qbittorrent
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">image</span>: lscr.io/linuxserver/qbittorrent:latest
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">network_mode</span>: service:vpn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">environment</span>:
+</span></span><span style="display:flex;"><span>      - PUID=1000
+</span></span><span style="display:flex;"><span>      - PGID=1000
+</span></span><span style="display:flex;"><span>      - TZ=UTC
+</span></span><span style="display:flex;"><span>      - WEBUI_PORT=5080
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">volumes</span>:
+</span></span><span style="display:flex;"><span>      - /home/user/jellyfin/volumes/media-stack_qbittorrent-config/_data:/config
+</span></span><span style="display:flex;"><span>      - /home/user/jellyfin/volumes/media-stack_torrent-downloads/_data:/downloads
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">restart</span>: <span style="color:#5af78e">&#34;unless-stopped&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff6ac1">radarr</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">profiles</span>: [<span style="color:#5af78e">&#34;vpn&#34;</span>, <span style="color:#5af78e">&#34;no-vpn&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">container_name</span>: radarr
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">image</span>: lscr.io/linuxserver/radarr:latest
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">networks</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff6ac1">mynetwork</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">ipv4_address</span>: <span style="color:#ff9f43">172.20.0.20</span> <span style="color:#78787e"># It should be available IPv4 address in range of docker network `mynetwork` e.g. 172.20.0.2  </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">environment</span>:
+</span></span><span style="display:flex;"><span>      - PUID=1000
+</span></span><span style="display:flex;"><span>      - PGID=1000
+</span></span><span style="display:flex;"><span>      - TZ=UTC
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">7878</span>:<span style="color:#ff9f43">7878</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">volumes</span>:
+</span></span><span style="display:flex;"><span>      - /home/user/jellyfin/volumes/media-stack_radarr-config/_data:/config
+</span></span><span style="display:flex;"><span>      - /home/user/jellyfin/volumes/media-stack_torrent-downloads/_data:/downloads
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">restart</span>: <span style="color:#5af78e">&#34;unless-stopped&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff6ac1">sonarr</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">profiles</span>: [<span style="color:#5af78e">&#34;vpn&#34;</span>, <span style="color:#5af78e">&#34;no-vpn&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">image</span>: linuxserver/sonarr:latest
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">container_name</span>: sonarr
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">networks</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff6ac1">mynetwork</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">ipv4_address</span>: <span style="color:#ff9f43">172.20.0.30</span> <span style="color:#78787e"># It should be available IPv4 address in range of docker network `mynetwork` e.g. 172.20.0.2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">environment</span>:
+</span></span><span style="display:flex;"><span>      - PUID=1000
+</span></span><span style="display:flex;"><span>      - PGID=1000
+</span></span><span style="display:flex;"><span>      - TZ=UTC
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">volumes</span>:
+</span></span><span style="display:flex;"><span>      - /home/user/jellyfin/volumes/media-stack_sonarr-config/_data:/config
+</span></span><span style="display:flex;"><span>      - /home/user/jellyfin/volumes/media-stack_torrent-downloads/_data:/downloads
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">8989</span>:<span style="color:#ff9f43">8989</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">restart</span>: unless-stopped
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff6ac1">prowlarr</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">profiles</span>: [<span style="color:#5af78e">&#34;vpn&#34;</span>, <span style="color:#5af78e">&#34;no-vpn&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">container_name</span>: prowlarr
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">image</span>: linuxserver/prowlarr:latest
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">networks</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff6ac1">mynetwork</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">ipv4_address</span>: <span style="color:#ff9f43">172.20.0.40</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">environment</span>:
+</span></span><span style="display:flex;"><span>      - PUID=1000
+</span></span><span style="display:flex;"><span>      - PGID=1000
+</span></span><span style="display:flex;"><span>      - TZ=UTC
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">volumes</span>:
+</span></span><span style="display:flex;"><span>      - /home/user/jellyfin/volumes/media-stack_prowlarr-config/_data:/config
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">9696</span>:<span style="color:#ff9f43">9696</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">restart</span>: unless-stopped
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff6ac1">jellyseerr</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">profiles</span>: [<span style="color:#5af78e">&#34;vpn&#34;</span>, <span style="color:#5af78e">&#34;no-vpn&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">image</span>: fallenbagel/jellyseerr:latest
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">container_name</span>: jellyseerr
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">networks</span>:
+</span></span><span style="display:flex;"><span>      - mynetwork
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">environment</span>:
+</span></span><span style="display:flex;"><span>      - PUID=1000
+</span></span><span style="display:flex;"><span>      - PGID=1000
+</span></span><span style="display:flex;"><span>      - TZ=UTC
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">volumes</span>:
+</span></span><span style="display:flex;"><span>      - /home/user/jellyfin/volumes/media-stack_jellyseerr-config/_data:/app/config
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">5055</span>:<span style="color:#ff9f43">5055</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">restart</span>: unless-stopped
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff6ac1">jellyfin</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">profiles</span>: [<span style="color:#5af78e">&#34;vpn&#34;</span>, <span style="color:#5af78e">&#34;no-vpn&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">image</span>: linuxserver/jellyfin:10.10.3
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">container_name</span>: jellyfin
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">networks</span>:
+</span></span><span style="display:flex;"><span>      - mynetwork
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">environment</span>:
+</span></span><span style="display:flex;"><span>      - PUID=1000
+</span></span><span style="display:flex;"><span>      - PGID=1000
+</span></span><span style="display:flex;"><span>      - TZ=UTC
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">volumes</span>:
+</span></span><span style="display:flex;"><span>      - /home/user/jellyfin/volumes/media-stack_jellyfin-config/_data:/config
+</span></span><span style="display:flex;"><span>      - /home/user/jellyfin/volumes/media-stack_torrent-downloads/_data:/data
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">8096</span>:<span style="color:#ff9f43">8096</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">7359</span>:<span style="color:#ff9f43">7359</span>/udp
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">8920</span>:<span style="color:#ff9f43">8920</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">restart</span>: unless-stopped
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff6ac1">readarr</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">profiles</span>: [<span style="color:#5af78e">&#34;vpn&#34;</span>, <span style="color:#5af78e">&#34;no-vpn&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">image</span>: lscr.io/linuxserver/readarr:develop
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">container_name</span>: readarr
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">environment</span>:
+</span></span><span style="display:flex;"><span>      - PUID=1000
+</span></span><span style="display:flex;"><span>      - PGID=1000
+</span></span><span style="display:flex;"><span>      - TZ=UTC
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">networks</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff6ac1">mynetwork</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">ipv4_address</span>: <span style="color:#ff9f43">172.20.0.60</span> <span style="color:#78787e"># It should be available IPv4 address in range of docker network `mynetwork` e.g. 172.20.0.2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">volumes</span>:
+</span></span><span style="display:flex;"><span>      - /home/user/jellyfin/volumes/media-stack_readarr-config/_data:/config
+</span></span><span style="display:flex;"><span>      - /home/user/jellyfin/volumes/media-stack_torrent-downloads/_data:/downloads
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">8787</span>:<span style="color:#ff9f43">8787</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">restart</span>: unless-stopped
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">networks</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ff6ac1">mynetwork</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">external</span>: <span style="color:#ff6ac1">true</span>
+</span></span></code></pre></div><p>You can optionally add Readarr and/or Calibre if you enjoy books!</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>  <span style="color:#ff6ac1">readarr</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">profiles</span>: [<span style="color:#5af78e">&#34;vpn&#34;</span>, <span style="color:#5af78e">&#34;no-vpn&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">image</span>: lscr.io/linuxserver/readarr:develop
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">container_name</span>: readarr
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">environment</span>:
+</span></span><span style="display:flex;"><span>      - PUID=1000
+</span></span><span style="display:flex;"><span>      - PGID=1000
+</span></span><span style="display:flex;"><span>      - TZ=UTC
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">networks</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ff6ac1">mynetwork</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">ipv4_address</span>: <span style="color:#ff9f43">172.20.0.60</span> <span style="color:#78787e"># It should be available IPv4 address in range of docker network `mynetwork` e.g. 172.20.0.2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">volumes</span>:
+</span></span><span style="display:flex;"><span>      - /home/keenan/jellyfin/volumes/media-stack_readarr-config/_data:/config
+</span></span><span style="display:flex;"><span>      - /home/keenan/jellyfin/volumes/media-stack_torrent-downloads/_data:/downloads <span style="color:#78787e">#optional</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">8787</span>:<span style="color:#ff9f43">8787</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">restart</span>: unless-stopped
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#ff6ac1">calibre</span>:
+</span></span><span style="display:flex;"><span>   <span style="color:#ff6ac1">profiles</span>: [<span style="color:#5af78e">&#34;vpn&#34;</span>, <span style="color:#5af78e">&#34;no-vpn&#34;</span>]
+</span></span><span style="display:flex;"><span>   <span style="color:#ff6ac1">image</span>: lscr.io/linuxserver/calibre:latest
+</span></span><span style="display:flex;"><span>   <span style="color:#ff6ac1">container_name</span>: calibre
+</span></span><span style="display:flex;"><span>   <span style="color:#ff6ac1">environment</span>:
+</span></span><span style="display:flex;"><span>     - PUID=1000
+</span></span><span style="display:flex;"><span>     - PGID=1000
+</span></span><span style="display:flex;"><span>      - TZ=Etc/UTC
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">networks</span>:
+</span></span><span style="display:flex;"><span>     - mynetwork
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">volumes</span>:
+</span></span><span style="display:flex;"><span>     - /home/keenan/jellyfin/volumes/media-stack_calibre-config/_data:/config
+</span></span><span style="display:flex;"><span>     - /home/keenan/jellyfin/volumes/media-stack_torrent-downloads/_data:/data
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">8080</span>:<span style="color:#ff9f43">8080</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">8181</span>:<span style="color:#ff9f43">8181</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ff9f43">8081</span>:<span style="color:#ff9f43">8081</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ff6ac1">restart</span>: unless-stopped
+</span></span></code></pre></div><p>Just throw that at the bottom of your <code>docker-compose.yml</code>, but be careful, Calibre&rsquo;s default webUI port is <code>8080</code> which is commonly used, so just make sure you don&rsquo;t have anything else running on it.</p>
 
         </div>
 
