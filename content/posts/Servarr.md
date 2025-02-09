@@ -90,6 +90,15 @@ You should now have a functioning media stack, but if your experience is anythin
 
 I found a <a href="https://www.reddit.com/r/qBittorrent/comments/fvpeib/comment/fmk3yh6/">reddit post</a> by u/WankWankNudgeNudge and after following their suggestions and giving qBittorrent 4GB of ram instead of the default 512MB, my downloading speeds went from about 1% _per day_ to a finishing whole 30GB file in under an hour.
 
+- Tools>Options>Connection:
+
+  + Enabled Protocol - set to `TCP` (just `TCP`, not `TCP and uTP`)
+
+  + Uncheck all boxes under `Listening Port` and `Connections Limits`.
+
+- Tools>Options>Speed: 
+  + Uncheck all boxes under `Rate Limits Settings`.
+
 You can improve your speeds more by port forwarding either via your router (if you aren't using the VPN profile) or through your VPN. Port forwarding is not _required_ but if you do not do it, you are restricting yourself to only connecting to peers who _do_. 
 
 I recently upgraded from Proton VPN free tier to Proton VPN Plus to do this, but have not got around to it yet. Apparently my motivation comes from frustration, and my downloads are fast enough for me at the moment. However, if you choose to go this route Proton has a <a href="https://protonvpn.com/support/port-forwarding#qbittorrent" target="_blank">guide to enable port forwarding in your qBittorrent client</a>.

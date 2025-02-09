@@ -507,6 +507,25 @@ They use Github for support, and you should go there to ask them questions or ca
 </h2>
 <p>You should now have a functioning media stack, but if your experience is anything like mine, your torrents are downloading slower than molasses in winter.</p>
 <p>I found a <a href="https://www.reddit.com/r/qBittorrent/comments/fvpeib/comment/fmk3yh6/">reddit post</a> by u/WankWankNudgeNudge and after following their suggestions and giving qBittorrent 4GB of ram instead of the default 512MB, my downloading speeds went from about 1% <em>per day</em> to a finishing whole 30GB file in under an hour.</p>
+<ul>
+<li>
+<p>Tools&gt;Options&gt;Connection:</p>
+<ul>
+<li>
+<p>Enabled Protocol - set to <code>TCP</code> (just <code>TCP</code>, not <code>TCP and uTP</code>)</p>
+</li>
+<li>
+<p>Uncheck all boxes under <code>Listening Port</code> and <code>Connections Limits</code>.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Tools&gt;Options&gt;Speed:</p>
+<ul>
+<li>Uncheck all boxes under <code>Rate Limits Settings</code>.</li>
+</ul>
+</li>
+</ul>
 <p>You can improve your speeds more by port forwarding either via your router (if you aren&rsquo;t using the VPN profile) or through your VPN. Port forwarding is not <em>required</em> but if you do not do it, you are restricting yourself to only connecting to peers who <em>do</em>.</p>
 <p>I recently upgraded from Proton VPN free tier to Proton VPN Plus to do this, but have not got around to it yet. Apparently my motivation comes from frustration, and my downloads are fast enough for me at the moment. However, if you choose to go this route Proton has a <a href="https://protonvpn.com/support/port-forwarding#qbittorrent" target="_blank">guide to enable port forwarding in your qBittorrent client</a>.</p>
 <p>This may not belong under improvements, but for myself, I dislike the default mounting points that the <code>docker-compose.yml</code> provided by navilg has. I opted to migrate these to bind mounts just for ease of access. If you set your mounts from the get-go, just set your path to be whatever you like (e.g. <code>./volumes</code>). However if you are migrating like I did you will need to change the host mounting point in your <code>docker-compose.yml</code> to something like <code>/home/user/jellyfin/volumes/media-stack_{volumename}/_data</code> and delete the <code>volumes:</code> at the bottom of the file. Note the <code>_data</code> directory. Since you are migrating with I assume something like <code>cp -r /var/lib/docker/volumes/media-stack_* /home/user/jellyfin/volumes</code>, all the files will be nested behind <code>_data</code> default by Docker.</p>
