@@ -41,6 +41,7 @@ My first mistake was wanting to access as many indexers as I could to increase m
 ```yaml
 services:
   flaresolverr:
+    profiles: ["vpn", "no-vpn"]
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
     environment:
@@ -65,7 +66,7 @@ I connected it to Prowlarr, and tried to add an indexer that required it. This s
 >
 >The current open issue on their github is: FlareSolverr/FlareSolverr#1253"
 
-So after all my efforts, I decided to scrap all hopes of using Flaresolverr tagged indexers.
+So after all my efforts, I decided to scrap all hopes of using Flaresolverr tagged indexers. This turned out to be perfectly fine, as sometimes less is more, and I have found having a few highly rated indexers just as good as having them all.
 
 My next hiccup was having Prowlarr passed to my VPN. Although this is the default setting in navilg's guide, I do not believe it to be correct. All of my indexers would fail almost immediately after restarting the container, so I started digging into logs. After inspecting both Docker and *arr logs there was _a lot_ of `HTTP request timed out` and `HTTP 429: TooManyRequests` errors. 
 
