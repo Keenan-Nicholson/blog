@@ -548,11 +548,11 @@ They use Github for support, and you should go there to ask them questions or ca
 </div>
 </h3>
 <p>If you are using Ubuntu you may be facing a lack of storage space. I only had 98gb free which, at first, I thought was some limit on the <code>torrent-downloads</code> mount or a restriction in my root partition.</p>
-<p>I ran <code>lsblk</code> to find out Ubuntu only allocated 100GB to your root filesystem.</p>
+<p>I ran <code>lsblk</code> to find out Ubuntu only allocates 100GB to your root filesystem.</p>
 <div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nvme0n1                   259:0    <span style="color:#ff9f43">0</span> 476.9G  <span style="color:#ff9f43">0</span> disk 
 </span></span><span style="display:flex;"><span>├─nvme0n1p1               259:1    <span style="color:#ff9f43">0</span>     1G  <span style="color:#ff9f43">0</span> part /boot/efi
 </span></span><span style="display:flex;"><span>├─nvme0n1p2               259:2    <span style="color:#ff9f43">0</span>     2G  <span style="color:#ff9f43">0</span> part /boot
-</span></span><span style="display:flex;"><span>└─nvme0n1p3               259:3    <span style="color:#ff9f43">0</span> 473.9G  <span style="color:#ff9f43">0</span> part 
+</span></span><span style="display:flex;"><span>└─nvme0n1p3               259:3    <span style="color:#ff9f43">0</span> 373.9G  <span style="color:#ff9f43">0</span> part 
 </span></span><span style="display:flex;"><span>  └─ubuntu--vg-ubuntu--lv 252:0    <span style="color:#ff9f43">0</span>   100G  <span style="color:#ff9f43">0</span> lvm  /
 </span></span></code></pre></div><p>I know, I need a bigger hard drive. Anyways, putting all my trust in ChatGPT I simply ran the following commands and gave <code>/</code> 100% of nvme0n1p3:</p>
 <div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv

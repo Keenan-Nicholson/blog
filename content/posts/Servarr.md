@@ -123,13 +123,13 @@ volumes:
 
 If you are using Ubuntu you may be facing a lack of storage space. I only had 98gb free which, at first, I thought was some limit on the `torrent-downloads` mount or a restriction in my root partition.
 
-I ran `lsblk` to find out Ubuntu only allocated 100GB to your root filesystem.
+I ran `lsblk` to find out Ubuntu only allocates 100GB to your root filesystem.
 
 ```bash
 nvme0n1                   259:0    0 476.9G  0 disk 
 ├─nvme0n1p1               259:1    0     1G  0 part /boot/efi
 ├─nvme0n1p2               259:2    0     2G  0 part /boot
-└─nvme0n1p3               259:3    0 473.9G  0 part 
+└─nvme0n1p3               259:3    0 373.9G  0 part 
   └─ubuntu--vg-ubuntu--lv 252:0    0   100G  0 lvm  /
 ```
 
