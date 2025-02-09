@@ -13,7 +13,7 @@
     
 
     
-    <lastBuildDate>Thu, 08 Feb 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 08 Feb 2025 00:00:00 +0000</lastBuildDate>
     
     <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
@@ -21,7 +21,7 @@
     <item>
       <title>An Imbeciles Guide to Servarr</title>
       <link>/posts/servarr/</link>
-      <pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 08 Feb 2025 00:00:00 +0000</pubDate>
       
       <guid>/posts/servarr/</guid>
       <description>&lt;h2 id=&#34;introduction&#34; &gt;
@@ -32,7 +32,7 @@
     Introduction
 &lt;/div&gt;
 &lt;/h2&gt;
-&lt;p&gt;About two years ago, a friend found half a dozen ThinkStation P330 Tiny for sale by a local CAD company that was upgrading their machines. $130 and a fresh install of Ubuntu Server later I was the proud owner of my first home server and, as I would soon come to find out, constant source of stress.&lt;/p&gt;
+&lt;p&gt;About two years ago, a friend found half a dozen ThinkStation P330 Tinys for sale by a local CAD company that was upgrading their machines. $130 and a fresh install of Ubuntu Server later I was the proud owner of my first home server and, as I would soon come to find out, constant source of stress.&lt;/p&gt;
 &lt;p&gt;My first attempt at a media stack included Jellyfin, Radarr, Transmission, and Jackett. It was outdated, unreliable, and slow—and it lacked a VPN. Frustrated with downloads taking two weeks for a 2GB movie, I eventually gave up. After moving apartments, my little ThinkStation ended up sitting in a closet for nearly a year and a half. That is, until I recently decided to take a break from doomscrolling social media. Boredom turned into productivity, and so I gave it a second shot &amp;ndash; this time with a more up-to-date stack and a bit more patience.&lt;/p&gt;
 &lt;p&gt;After a couple weeks of reading docs, reddit posts, blogs, and forums I am finally satisified with my Servarr setup and thought I would share my experience in case anyone runs into similar roadblocks while setting up their own media stack.&lt;/p&gt;
 &lt;p&gt;You can find my entire &lt;code&gt;docker-compose.yml&lt;/code&gt; and any other configs I used in the &lt;a href=&#34;#appendix&#34;&gt;appendix&lt;/a&gt; at the end of this article.&lt;/p&gt;

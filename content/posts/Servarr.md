@@ -5,7 +5,7 @@ draft = false
 +++
 ## Introduction
 
-About two years ago, a friend found half a dozen ThinkStation P330 Tiny for sale by a local CAD company that was upgrading their machines. $130 and a fresh install of Ubuntu Server later I was the proud owner of my first home server and, as I would soon come to find out, constant source of stress.
+About two years ago, a friend found half a dozen ThinkStation P330 Tinys for sale by a local CAD company that was upgrading their machines. $130 and a fresh install of Ubuntu Server later I was the proud owner of my first home server and, as I would soon come to find out, constant source of stress.
 
 My first attempt at a media stack included Jellyfin, Radarr, Transmission, and Jackett. It was outdated, unreliable, and slow—and it lacked a VPN. Frustrated with downloads taking two weeks for a 2GB movie, I eventually gave up. After moving apartments, my little ThinkStation ended up sitting in a closet for nearly a year and a half. That is, until I recently decided to take a break from doomscrolling social media. Boredom turned into productivity, and so I gave it a second shot -- this time with a more up-to-date stack and a bit more patience.
 
