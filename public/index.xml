@@ -13,10 +13,69 @@
     
 
     
-    <lastBuildDate>Sat, 08 Feb 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 12 Feb 2025 00:00:00 +0000</lastBuildDate>
     
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sharing Big Data via Torrent Clients</title>
+      <link>/posts/sharing-data-via-torrent/</link>
+      <pubDate>Wed, 12 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/sharing-data-via-torrent/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#introduction&#34;&gt;
+        #
+    &lt;/a&gt;
+    Introduction
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;My day job involves working with large datasets, and I often need to share terabytes of data with coworkers. That’s all well and good—provided your company doesn’t mind paying egress fees, sharing network folders, or swapping external hard drives. A few months ago, I needed to adapt some existing code for our use case. Before I could do that, I had to get it running with the original dataset which was just over a terabyte  in size.&lt;/p&gt;
+&lt;p&gt;This is where I found the inspiration for this article! The code, which was part of a graduate thesis for a student at Oregon State University, linked to a page with instructions to download datasets larger than 5GB via the BitTorrent Protocol.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Datasets larger than 5GB deposited in ScholarsArchive@OSU will be distributed using the BitTorrent protocol. BitTorrent, in essence, splits the file into smaller pieces, distributes the smaller pieces to you, and then reconstructs them to recreate the whole - all in a way that reduces impact on our computer networks. In addition, each “piece” of the file carries a marker that helps verify the validity and integrity of the final file.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;I thought this was a super interesting way to share large datasets in an academic setting so I decided to do some more digging.&lt;/p&gt;
+&lt;h2 id=&#34;why-use-a-torrent-client-to-share-data&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#why-use-a-torrent-client-to-share-data&#34;&gt;
+        #
+    &lt;/a&gt;
+    Why use a Torrent Client to Share Data?
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;As mentioned by OSU above, using a torrent client break the files into small pieces and then reassembles them on the users end, but how does this reduce the impact on the networks?&lt;/p&gt;
+&lt;p&gt;To understand how this may impact a network, we first need to discuss how torrenting works in a bit more detail. &lt;a href=&#34;https://medium.com/@edouard.courty/how-does-the-torrent-protocol-work-4ff40615d2ba&#34; target=&#34;_blank&#34;&gt;This Medium article&lt;/a&gt; by Edouard Courty offers a great explanation, in essence when you download a file through Torrent, you’re not getting it from a single server but from multiple sources, often referred to as &lt;strong&gt;seeds&lt;/strong&gt; and &lt;strong&gt;peers&lt;/strong&gt;. When you initiate a download, your Torrent client will reach out to a tracker, which helps it find other users who have the same Torrent file downloaded and are currently sharing it (seeds) or are currently downloading the same content (peers). If this is a bit confusing, take a look at this &lt;a href=&#34;https://www.reddit.com/r/explainlikeimfive/comments/10bl0sb/eli5_how_do_torrents_work/&#34; target=&#34;_blank&#34;&gt;reddit post&lt;/a&gt; by u/Dekkars in ELI5.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You&amp;rsquo;d like to buy a book. One option is to go to the bookstore and spend money on it (direct download) but you don&amp;rsquo;t want to do that.&lt;/p&gt;
+&lt;p&gt;So you talk to your friend Alberto. Alberto knows everyone, and has a long list of all the people who own this book and are willing to photocopy a page (seeders).&lt;/p&gt;
+&lt;p&gt;You send a letter to each person, asking for a specific page number (leeching).&lt;/p&gt;
+&lt;p&gt;They send a letter back with that specific page. Sometimes you are missing a page, or it&amp;rsquo;s unreadable. That&amp;rsquo;s ok, you have that list and you can just ask someone else!&lt;/p&gt;
+&lt;p&gt;Now you have all the pages of the book. Because everyone helped you, you now tell Alberto that you&amp;rsquo;re willing to help. You give him your address, and you start getting letters asking for pages (becoming a seeder).&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s fine. You can enjoy your book and help others get pages too.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;This comes with some advantages: first, with a torrent, once the first few people start downloading, they also become seeders, meaning later downloaders can get pieces of the file from multiple sources instead of relying solely on your network. This has potential to vastly reduce the outgoing bandwidth over direct downloading, especially if you multiple people are trying to download the data simultaneously.&lt;/p&gt;
+&lt;p&gt;Next, it can increase the reliability of downloads. If the data server goes offline, you can still collect file parts from seeders and peers, whereas with a direct download, a server crash may cause the download to fail. Speaking of not relying on one server, another advantage of decentralization is sharing the load among all users participating in the torrent. This can reduce costs and help reduce the effects felt by server limitations.&lt;/p&gt;
+&lt;p&gt;Finally, torrenting has great scalability. If we have a bunch of people trying to direct download from the data server at the same time this can put immense stress on the network slowing the downloads to a crawl. However, when torrenting, each downloader is sharing bandwidth and reducing the stress on any one server.&lt;/p&gt;
+&lt;p&gt;Amazing! We have:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Reduced Bandwidth Strain on Your Network,&lt;/li&gt;
+&lt;li&gt;Faster Download Speeds,&lt;/li&gt;
+&lt;li&gt;More Reliable Downloads,&lt;/li&gt;
+&lt;li&gt;Decentralization and,&lt;/li&gt;
+&lt;li&gt;Better Scalability&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;why would we ever &lt;em&gt;not&lt;/em&gt; use a torrent client to share our data then?&lt;/p&gt;
+&lt;h2 id=&#34;sharing-is-caring&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#sharing-is-caring&#34;&gt;
+        #
+    &lt;/a&gt;
+    Sharing is Caring
+&lt;/div&gt;
+&lt;/h2&gt;
+</description>
+    </item>
     
     <item>
       <title>An Imbeciles Guide to Servarr</title>

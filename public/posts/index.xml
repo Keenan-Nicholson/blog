@@ -13,10 +13,31 @@
     
 
     
-    <lastBuildDate>Sat, 08 Feb 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 12 Feb 2025 00:00:00 +0000</lastBuildDate>
     
     <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sharing Big Data via Torrent Clients</title>
+      <link>/posts/sharing-data-via-torrent/</link>
+      <pubDate>Wed, 12 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/sharing-data-via-torrent/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#introduction&#34;&gt;
+        #
+    &lt;/a&gt;
+    Introduction
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;My day job involves working with large datasets, and I often need to share terabytes of data with coworkers. That’s all well and good—provided your company doesn’t mind paying egress fees, sharing network folders, or swapping external hard drives. A few months ago, I needed to adapt some existing code for our use case. Before I could do that, I had to get it running with the original dataset which was just over a terabyte  in size.&lt;/p&gt;
+&lt;p&gt;This is where I found the inspiration for this article! The code, which was part of a graduate thesis for a student at Oregon State University, linked to a page with instructions to download datasets larger than 5GB via the BitTorrent Protocol.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Datasets larger than 5GB deposited in ScholarsArchive@OSU will be distributed using the BitTorrent protocol. BitTorrent, in essence, splits the file into smaller pieces, distributes the smaller pieces to you, and then reconstructs them to recreate the whole - all in a way that reduces impact on our computer networks. In addition, each “piece” of the file carries a marker that helps verify the validity and integrity of the final file.&lt;/p&gt;&lt;/blockquote&gt;
+</description>
+    </item>
     
     <item>
       <title>An Imbeciles Guide to Servarr</title>
