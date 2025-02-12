@@ -45,6 +45,10 @@
     Why use a Torrent Client to Share Data?
 &lt;/div&gt;
 &lt;/h2&gt;
+&lt;details&gt;
+  &lt;summary&gt;Relevant XKCD ⬇️&lt;/summary&gt;
+  &lt;img src=&#34;https://imgs.xkcd.com/comics/file_transfer.png&#34; alt=&#34;XKCD File Transfer&#34;&gt;
+&lt;/details&gt;
 &lt;p&gt;As mentioned by OSU above, using a torrent client break the files into small pieces and then reassembles them on the users end, but how does this reduce the impact on the networks?&lt;/p&gt;
 &lt;p&gt;To understand how this may impact a network, we first need to discuss how torrenting works in a bit more detail. &lt;a href=&#34;https://medium.com/@edouard.courty/how-does-the-torrent-protocol-work-4ff40615d2ba&#34; target=&#34;_blank&#34;&gt;This Medium article&lt;/a&gt; by Edouard Courty offers a great explanation, in essence when you download a file through Torrent, you’re not getting it from a single server but from multiple sources, often referred to as &lt;strong&gt;seeds&lt;/strong&gt; and &lt;strong&gt;peers&lt;/strong&gt;. When you initiate a download, your Torrent client will reach out to a tracker, which helps it find other users who have the same Torrent file downloaded and are currently sharing it (seeds) or are currently downloading the same content (peers). If this is a bit confusing, take a look at this &lt;a href=&#34;https://www.reddit.com/r/explainlikeimfive/comments/10bl0sb/eli5_how_do_torrents_work/&#34; target=&#34;_blank&#34;&gt;reddit post&lt;/a&gt; by u/Dekkars in ELI5.&lt;/p&gt;
 &lt;blockquote&gt;
