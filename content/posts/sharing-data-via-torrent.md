@@ -16,8 +16,8 @@ I thought this was a super interesting way to share large datasets in an academi
 ## Why use a Torrent Client to Share Data?
 
 <details>
-  <summary>Relevant XKCD ⬇️</summary>
-  <img src="https://imgs.xkcd.com/comics/file_transfer.png" alt="XKCD File Transfer">
+  <summary>Relevant xkcd ⬇️</summary>
+  <img src="https://imgs.xkcd.com/comics/file_transfer.png" alt="xkcd File Transfer">
 </details>
 
 As mentioned by OSU above, using a torrent client break the files into small pieces and then reassembles them on the users end, but how does this reduce the impact on the networks?
@@ -55,3 +55,7 @@ Amazing! We have:
 why would we ever _not_ use a torrent client to share our data then?
 
 ## Sharing is Caring
+
+Sharing your data via the torrent protocol might seem ideal in theory, but real-world results can vary. Especially when dealing with highly specialized data. If you are the only seed and there are no other peers, then the downloader is using only your bandwidth to retrieve the file. In this scenario, the stress on your network is essentially the same as a direct download because you're the sole source of the data. So, when it comes to torrenting, having multiple people seeding and/or as peers is essential to not only its functionality but to take advantage of all of the benefits it provides.
+
+For this thought experiment—where universities, professionals, and hobbyists share data via the torrent protocol—to be effective, the data must be in demand. If you work in a highly specialized field with few potential downloaders or are dealing with proprietary company data, maintaining a healthy number of seeders and peers can become a challenge.
