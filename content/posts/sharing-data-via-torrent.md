@@ -1,7 +1,7 @@
 +++
 date = '2025-02-14'
 draft = false
-title = 'Sharing Big Data via Torrent Clients'
+title = 'Sharing Big Data via Torrent Protocol'
 +++
 ## Introduction
 
@@ -15,7 +15,7 @@ I thought this was a super interesting way to share large datasets in an academi
 
 While it might be a bit more challenging to find universities that openly advertise torrenting as a method for sharing data—like Oregon State University does—it’s clear that there is an increasing demand for decentralized file-sharing solutions in academia.
 
-## Why use a Torrent Client to Share Data?
+## Why use the Torrent Protocol to Share Data?
 
 <details>
   <summary>Relevant xkcd ⬇️</summary>
@@ -58,7 +58,7 @@ Amazing! We have:
 4. Decentralization and,
 5. Better Scalability
 
-## Why Would We Ever _Not_ Use a Torrent Client to Share Our Data?
+## Why Would We Ever _Not_ Use the Torrent Protocol to Share Our Data?
 
 They say sharing is caring, and when it comes to torrenting, that couldn't be more true. If you are the only seed and there are no other peers, then the downloader is using only your bandwidth to retrieve the file. In this scenario, the stress on your network is essentially the same as a direct download because you're the sole source of the data. So, when it comes to torrenting, having multiple people seeding and/or as peers is essential to not only its functionality but to take advantage of all of the benefits it provides. For professionals and hobbyists to effectively share data via torrents, the data must be in demand. If you work in a highly specialized field with few potential downloaders or handle proprietary company data, maintaining a healthy number of seeders and peers can be a challenge. So, sharing your data via the torrent protocol might seem ideal in theory, but real-world results can vary.
 
