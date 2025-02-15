@@ -22,7 +22,7 @@ While it might be a bit more challenging to find universities that openly advert
   <img src="https://imgs.xkcd.com/comics/file_transfer.png" alt="xkcd File Transfer">
 </details>
 
-As mentioned by O.S.U above, using a torrent client break the files into small pieces and then reassembles them on the users end, but how does this reduce impact on networks?
+As mentioned by OSU above, using a torrent client breaks the files into small pieces and then reassembles them on the users end, but how does this reduce impact on networks?
 
 To understand how this may impact a network, we first need to discuss how torrenting works in a bit more detail. <a href="https://medium.com/@edouard.courty/how-does-the-torrent-protocol-work-4ff40615d2ba" target="_blank">This Medium article</a> by Edouard Courty offers a great explanation - in essence when you download a file via BitTorrent, you’re not getting it from a single server but from multiple sources, often referred to as __seeds__ and __peers__. When you initiate a download, your Torrent client will reach out to a __tracker__, which helps it find other users who have the same Torrent file downloaded and are currently sharing it (seeds) or are currently downloading the same content (peers).
 
