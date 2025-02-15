@@ -30,7 +30,7 @@ To understand how this may impact a network, we first need to discuss how torren
      alt="Peers and seeders diagram" 
      style="height: 40vh; width: auto;">
 
- If this is a bit confusing, take a look at this <a href="https://www.reddit.com/r/explainlikeimfive/comments/10bl0sb/eli5_how_do_torrents_work/" target="_blank">reddit post</a> by u/Dekkars in ELI5.
+ If this is a bit confusing, take a look at this <a href="https://www.reddit.com/r/explainlikeimfive/comments/10bl0sb/eli5_how_do_torrents_work/" target="_blank">reddit post</a> by u/Dekkars in the ELI5 subreddit.
 
 >You'd like to buy a book. One option is to go to the bookstore and spend money on it (direct download) but you don't want to do that.
 >
@@ -60,7 +60,7 @@ Amazing! We have:
 
 ## Why Would We Ever _Not_ Use a Torrent Client to Share Our Data?
 
-They say sharing is caring, and when it comes to torrenting, that couldn't be more true. If you are the only seed and there are no other peers, then the downloader is using only your bandwidth to retrieve the file. In this scenario, the stress on your network is essentially the same as a direct download because you're the sole source of the data. So, when it comes to torrenting, having multiple people seeding and/or as peers is essential to not only its functionality but to take advantage of all of the benefits it provides. For professionals and hobbyists to effectively share data via torrents, the data must be in demand. If you work in a highly specialized field with few potential downloaders or handle proprietary company data, maintaining a healthy number of seeders and peers can be a challenge. S0, sharing your data via the torrent protocol might seem ideal in theory, but real-world results can vary.
+They say sharing is caring, and when it comes to torrenting, that couldn't be more true. If you are the only seed and there are no other peers, then the downloader is using only your bandwidth to retrieve the file. In this scenario, the stress on your network is essentially the same as a direct download because you're the sole source of the data. So, when it comes to torrenting, having multiple people seeding and/or as peers is essential to not only its functionality but to take advantage of all of the benefits it provides. For professionals and hobbyists to effectively share data via torrents, the data must be in demand. If you work in a highly specialized field with few potential downloaders or handle proprietary company data, maintaining a healthy number of seeders and peers can be a challenge. So, sharing your data via the torrent protocol might seem ideal in theory, but real-world results can vary.
 
 When downloading chunks of data from different peers there is always a chance that one of those chunks may be faulty. Thankfully, the risk of this is minimal as the torrent protocol has built-in hash checks to verify each piece of the file, preventing most corruption issues.
 
