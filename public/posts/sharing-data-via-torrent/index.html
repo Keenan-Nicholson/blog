@@ -336,7 +336,7 @@ My day job involves working with large datasets, and I often need to share terab
 <div class="post-info noselect">
     
         <div class="post-date dt-published">
-            <time datetime="2025-02-12">2025-02-12</time>
+            <time datetime="2025-02-14">2025-02-14</time>
             
         </div>
     
@@ -370,7 +370,8 @@ My day job involves working with large datasets, and I often need to share terab
   <ul>
     <li><a href="#introduction">Introduction</a></li>
     <li><a href="#why-use-a-torrent-client-to-share-data">Why use a Torrent Client to Share Data?</a></li>
-    <li><a href="#sharing-is-caring">Sharing is Caring</a></li>
+    <li><a href="#why-would-we-ever-_not_-use-a-torrent-client-to-share-our-data">Why Would We Ever <em>Not</em> Use a Torrent Client to Share Our Data?</a></li>
+    <li><a href="#final-thoughts">Final Thoughts</a></li>
   </ul>
 </nav></div>
   </details>
@@ -409,7 +410,8 @@ My day job involves working with large datasets, and I often need to share terab
 <p>This is where I found the inspiration for this article! The code, which was part of a graduate thesis for a student at Oregon State University, linked to a page with instructions to download datasets larger than 5GB via the BitTorrent Protocol.</p>
 <blockquote>
 <p>Datasets larger than 5GB deposited in ScholarsArchive@OSU will be distributed using the BitTorrent protocol. BitTorrent, in essence, splits the file into smaller pieces, distributes the smaller pieces to you, and then reconstructs them to recreate the whole - all in a way that reduces impact on our computer networks. In addition, each “piece” of the file carries a marker that helps verify the validity and integrity of the final file.</p></blockquote>
-<p>I thought this was a super interesting way to share large datasets in an academic setting so I decided to do some more digging.</p>
+<p>I thought this was a super interesting way to share large datasets in an academic setting so I decided to do some more digging. It turns out there is existing infrastructure to share academic data via torrents, just check out <a href="https://academictorrents.com/">academictorrents.com</a> which hosts over 127TB of research data available for download via the BitTorrent protocol. This platform provides a centralized location for researchers and institutions to share their work, making large datasets more accessible to the academic community.</p>
+<p>While it might be a bit more challenging to find universities that openly advertise torrenting as a method for sharing data—like Oregon State University does—it’s clear that there is an increasing demand for decentralized file-sharing solutions in academia.</p>
 <h2 id="why-use-a-torrent-client-to-share-data" >
 <div>
     <a href="#why-use-a-torrent-client-to-share-data">
@@ -419,11 +421,15 @@ My day job involves working with large datasets, and I often need to share terab
 </div>
 </h2>
 <details>
-  <summary>Relevant XKCD ⬇️</summary>
-  <img src="https://imgs.xkcd.com/comics/file_transfer.png" alt="XKCD File Transfer">
+  <summary>Relevant xkcd ⬇️</summary>
+  <img src="https://imgs.xkcd.com/comics/file_transfer.png" alt="xkcd File Transfer">
 </details>
 <p>As mentioned by OSU above, using a torrent client break the files into small pieces and then reassembles them on the users end, but how does this reduce the impact on the networks?</p>
-<p>To understand how this may impact a network, we first need to discuss how torrenting works in a bit more detail. <a href="https://medium.com/@edouard.courty/how-does-the-torrent-protocol-work-4ff40615d2ba" target="_blank">This Medium article</a> by Edouard Courty offers a great explanation, in essence when you download a file through Torrent, you’re not getting it from a single server but from multiple sources, often referred to as <strong>seeds</strong> and <strong>peers</strong>. When you initiate a download, your Torrent client will reach out to a tracker, which helps it find other users who have the same Torrent file downloaded and are currently sharing it (seeds) or are currently downloading the same content (peers). If this is a bit confusing, take a look at this <a href="https://www.reddit.com/r/explainlikeimfive/comments/10bl0sb/eli5_how_do_torrents_work/" target="_blank">reddit post</a> by u/Dekkars in ELI5.</p>
+<p>To understand how this may impact a network, we first need to discuss how torrenting works in a bit more detail. <a href="https://medium.com/@edouard.courty/how-does-the-torrent-protocol-work-4ff40615d2ba" target="_blank">This Medium article</a> by Edouard Courty offers a great explanation, in essence when you download a file through Torrent, you’re not getting it from a single server but from multiple sources, often referred to as <strong>seeds</strong> and <strong>peers</strong>. When you initiate a download, your Torrent client will reach out to a tracker, which helps it find other users who have the same Torrent file downloaded and are currently sharing it (seeds) or are currently downloading the same content (peers).</p>
+<p><img src="https://www.rapidseedbox.com/wp-content/uploads/how-torrenting-works-1.jpg" 
+alt="Peers and seeders diagram" 
+style="height: 40vh; width: auto;"></p>
+<p>If this is a bit confusing, take a look at this <a href="https://www.reddit.com/r/explainlikeimfive/comments/10bl0sb/eli5_how_do_torrents_work/" target="_blank">reddit post</a> by u/Dekkars in ELI5.</p>
 <blockquote>
 <p>You&rsquo;d like to buy a book. One option is to go to the bookstore and spend money on it (direct download) but you don&rsquo;t want to do that.</p>
 <p>So you talk to your friend Alberto. Alberto knows everyone, and has a long list of all the people who own this book and are willing to photocopy a page (seeders).</p>
@@ -442,15 +448,28 @@ My day job involves working with large datasets, and I often need to share terab
 <li>Decentralization and,</li>
 <li>Better Scalability</li>
 </ol>
-<p>why would we ever <em>not</em> use a torrent client to share our data then?</p>
-<h2 id="sharing-is-caring" >
+<h2 id="why-would-we-ever-_not_-use-a-torrent-client-to-share-our-data" >
 <div>
-    <a href="#sharing-is-caring">
+    <a href="#why-would-we-ever-_not_-use-a-torrent-client-to-share-our-data">
         #
     </a>
-    Sharing is Caring
+    Why Would We Ever <em>Not</em> Use a Torrent Client to Share Our Data?
 </div>
 </h2>
+<p>They say sharing is caring, and when it comes to torrenting, that couldn&rsquo;t be more true. If you are the only seed and there are no other peers, then the downloader is using only your bandwidth to retrieve the file. In this scenario, the stress on your network is essentially the same as a direct download because you&rsquo;re the sole source of the data. So, when it comes to torrenting, having multiple people seeding and/or as peers is essential to not only its functionality but to take advantage of all of the benefits it provides. For professionals and hobbyists to effectively share data via torrents, the data must be in demand. If you work in a highly specialized field with few potential downloaders or handle proprietary company data, maintaining a healthy number of seeders and peers can be a challenge. S0, sharing your data via the torrent protocol might seem ideal in theory, but real-world results can vary.</p>
+<p>When downloading chunks of data from different peers there is always a chance that one of those chunks may be faulty. Thankfully, the risk of this is minimal as the torrent protocol has built-in hash checks to verify each piece of the file, preventing most corruption issues.</p>
+<p>Malware and fake torrents can also be an issue, you should always verify that you are receiving your data from a trusted source and validate your <code>.torrent</code> by verifying the source and inspecting it for &ldquo;red flag&rdquo; extensions, in particular, executables such as <code>.exe</code>, <code>.bat</code>, <code>.scr</code>, <code>.js</code>, <code>.vbs</code>. A great security measure is to use a remote server, known as a seedbox, to download and upload torrents quickly and safely. If you choose to use your local machine it&rsquo;s important to remember that your IP address is visible to other peers, make sure to always use a VPN to help anonymize your connection and minimize the risk of exposure to malicious actors.</p>
+<h2 id="final-thoughts" >
+<div>
+    <a href="#final-thoughts">
+        #
+    </a>
+    Final Thoughts
+</div>
+</h2>
+<p>Sharing data via the torrent protocol can be an excellent way for universities, professionals, or even hobbyists to collaborate while minimizing costs and reducing the load on their servers. By distributing files across multiple peers and seeders, the burden on a single server is drastically reduced, and download speeds can improve for everyone involved. However, there are several risks to consider before diving in. Torrenting is not without its potential hazards, and a little bit of computer literacy and caution can go a long way in ensuring a safe and effective experience.</p>
+<p>For instance, if just one or two others find your data valuable and decide to download it, they can become seeders themselves, further distributing the load. This helps not only with bandwidth management but also increases the reliability of file transfers, as each downloader contributes to the overall availability of the file. However, you must ensure that the torrent is securely configured, as malicious actors or corrupted files can pose serious security threats. By taking simple precautions, such as validating the source and using a trusted tracker, you can reduce these risks.</p>
+<p>In the right context, torrenting can be a powerful tool for file sharing and collaboration and the more institutions that recognize the benefits of this approach then the more efficient and viable it will become. However, it’s important to weigh the potential downsides, such as dealing with a lack of seeders or ensuring the privacy of your data. With thoughtful planning and the right precautions, torrenting can be a valuable and low-cost option for distributing large datasets.</p>
 
         </div>
 
