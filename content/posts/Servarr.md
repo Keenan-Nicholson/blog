@@ -271,11 +271,13 @@ services:
     container_name: jellyseerr
     networks:
       - mynetwork
-
+    dns:
+      - 8.8.8.8
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=UTC
+      - forceIpv4First=true
 
     volumes:
       - /home/user/jellyfin/volumes/media-stack_jellyseerr-config/_data:/app/config
