@@ -309,26 +309,6 @@ services:
 
     restart: unless-stopped
 
-  readarr:
-    profiles: ["vpn", "no-vpn"]
-    image: lscr.io/linuxserver/readarr:develop
-    container_name: readarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=UTC
-
-    networks:
-      mynetwork:
-        ipv4_address: 172.20.0.60 # It should be available IPv4 address in range of docker network `mynetwork` e.g. 172.20.0.2
-
-    volumes:
-      - /home/user/jellyfin/volumes/media-stack_readarr-config/_data:/config
-      - /home/user/jellyfin/volumes/media-stack_torrent-downloads/_data:/downloads
-    ports:
-      - 8787:8787
-    restart: unless-stopped
-
 networks:
   mynetwork:
     external: true
