@@ -277,7 +277,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=UTC
-      - forceIpv4First=true
+      - FORCE_IPV4_FIRST=true
 
     volumes:
       - /home/user/jellyfin/volumes/media-stack_jellyseerr-config/_data:/app/config
