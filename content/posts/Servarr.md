@@ -3,6 +3,7 @@ title = 'An Imbeciles Guide to Servarr'
 date = 2025-02-08
 draft = false
 +++
+
 ## Introduction
 
 About two years ago, a friend found half a dozen ThinkStation P330 Tinys for sale by a local CAD company that was upgrading their machines. $130 and a fresh install of Ubuntu Server later I was the proud owner of my first home server and, as I would soon come to find out, constant source of stress.
@@ -16,6 +17,7 @@ You can find my entire `docker-compose.yml` and any other configs I used in the 
 ## Media Stack
 
 Not knowing exactly where to begin, I did some snooping and eventually found a popular guide by <a href="https://github.com/navilg" target="_blank">navilg</a>. This easy to follow guide got the ball rolling with a dockerized media stack consisting of:
+
 - Jellyfin,
 - Jellyseerr,
 - Radarr,
@@ -57,50 +59,50 @@ services:
 
 I connected it to Prowlarr, and tried to add an indexer that required it. This started a multi-day hair pulling exercise in learning about DNS settings and Docker networking as I fought for my life to try to solve the error `Unable to connect to indexer, please check your DNS settings and ensure IPv6 is working or disabled`. After questioning friends with more Docker and networking experience than myself to no avail, I finally joined the <a href="https://discord.com/invite/8Dbsx35rrx" target="_blank">Servarr Discord</a> where I was informed that Flaresolverr has been in shambles since Cloudflare developers have been keeping an eye on it.
 
->Flaresolverr is currently BROKEN. The Cloudflare devs are watching the repo and so it is very likely permanently dead.
+> Flaresolverr is currently BROKEN. The Cloudflare devs are watching the repo and so it is very likely permanently dead.
 >
->Also, we are not the Flaresolverr support team and cannot help you with questions that don't relate specifically to adding Flaresolverr to Prowlarr.
+> Also, we are not the Flaresolverr support team and cannot help you with questions that don't relate specifically to adding Flaresolverr to Prowlarr.
 >
->Flaresolverr is a 3rd party program which solves cloudflare captchas for some indexers.
->They use Github for support, and you should go there to ask them questions or catch up on the current status of the program.
+> Flaresolverr is a 3rd party program which solves cloudflare captchas for some indexers.
+> They use Github for support, and you should go there to ask them questions or catch up on the current status of the program.
 >
->The current open issue on their github is: FlareSolverr/FlareSolverr#1253"
+> The current open issue on their github is: FlareSolverr/FlareSolverr#1253"
 
 So after all my efforts, I decided to scrap all hopes of using Flaresolverr tagged indexers. This turned out to be perfectly fine, as sometimes less is more, and I have found having a few highly rated indexers just as good as having them all.
 
-My next hiccup was having Prowlarr passed to my VPN. Although this is the default setting in navilg's guide, I do not believe it to be correct. All of my indexers would fail almost immediately after restarting the container, so I started digging into logs. After inspecting both Docker and *arr logs there was _a lot_ of `HTTP request timed out` and `HTTP 429: TooManyRequests` errors. 
+My next hiccup was having Prowlarr passed to my VPN. Although this is the default setting in navilg's guide, I do not believe it to be correct. All of my indexers would fail almost immediately after restarting the container, so I started digging into logs. After inspecting both Docker and \*arr logs there was _a lot_ of `HTTP request timed out` and `HTTP 429: TooManyRequests` errors.
 
-I knew this was likely due to my VPN configuration, but no matter what I did (e.g. changing DNS to `1.1.1.1` or `8.8.8.8` in the VPN, containers, dropping the firewall all together, and becoming all too familiar with <a href="https://github.com/qdm12/gluetun" target="_blank">Gluetun</a> documentation) I just couldn't get it. 
+I knew this was likely due to my VPN configuration, but no matter what I did (e.g. changing DNS to `1.1.1.1` or `8.8.8.8` in the VPN, containers, dropping the firewall all together, and becoming all too familiar with <a href="https://github.com/qdm12/gluetun" target="_blank">Gluetun</a> documentation) I just couldn't get it.
 
 I finally just decided I had to get rid of the VPN and risk getting some threatening mail from my ISP when a friend mentioned that you dont _need_ to have Prowlarr networked through your VPN. It turns out he was right! Although interacting with indexers is a bit shady, its not really illegal. As long as you have your download client handled by the VPN you should be fine. So, I got rid of `network_mode: service:vpn` for `mynetwork`, assigned it a static ipv4 address, et voilà, I had functioning indexers!
 
 ```yaml
-  prowlarr:
-    profiles: ["vpn", "no-vpn"]
-    container_name: prowlarr
-    image: linuxserver/prowlarr:latest
+prowlarr:
+  profiles: ["vpn", "no-vpn"]
+  container_name: prowlarr
+  image: linuxserver/prowlarr:latest
 
-    networks:
-      mynetwork:
-        ipv4_address: 172.20.0.40
+  networks:
+    mynetwork:
+      ipv4_address: 172.20.0.40
 ```
 
 ## Improvements
 
-You should now have a functioning media stack, but if your experience is anything like mine, your torrents are downloading slower than molasses in winter. 
+You should now have a functioning media stack, but if your experience is anything like mine, your torrents are downloading slower than molasses in winter.
 
 I found a <a href="https://www.reddit.com/r/qBittorrent/comments/fvpeib/comment/fmk3yh6/">reddit post</a> by u/WankWankNudgeNudge and after following their suggestions and giving qBittorrent 4GB of ram instead of the default 512MB, my downloading speeds went from about 1% _per day_ to a finishing whole 30GB file in under an hour.
 
 - Tools>Options>Connection:
 
-  + Enabled Protocol - set to `TCP` (just `TCP`, not `TCP and uTP`)
+  - Enabled Protocol - set to `TCP` (just `TCP`, not `TCP and uTP`)
 
-  + Uncheck all boxes under `Listening Port` and `Connections Limits`.
+  - Uncheck all boxes under `Listening Port` and `Connections Limits`.
 
-- Tools>Options>Speed: 
-  + Uncheck all boxes under `Rate Limits Settings`.
+- Tools>Options>Speed:
+  - Uncheck all boxes under `Rate Limits Settings`.
 
-You can improve your speeds more by port forwarding either via your router (if you aren't using the VPN profile) or through your VPN. Port forwarding is not _required_ but if you do not do it, you are restricting yourself to only connecting to peers who _do_. 
+You can improve your speeds more by port forwarding either via your router (if you aren't using the VPN profile) or through your VPN. Port forwarding is not _required_ but if you do not do it, you are restricting yourself to only connecting to peers who _do_.
 
 I recently upgraded from Proton VPN free tier to Proton VPN Plus to do this, but have not got around to it yet. Apparently my motivation comes from frustration, and my downloads are fast enough for me at the moment. However, if you choose to go this route Proton has a <a href="https://protonvpn.com/support/port-forwarding#qbittorrent" target="_blank">guide to enable port forwarding in your qBittorrent client</a>.
 
@@ -110,13 +112,13 @@ You will also need to delete the volumes from the bottom of your `docker-compose
 
 ```yaml
 volumes:
- torrent-downloads:
- radarr-config:
- sonarr-config:
- prowlarr-config:
- jellyfin-config:
- qbittorrent-config:
- jellyseerr-config:
+  torrent-downloads:
+  radarr-config:
+  sonarr-config:
+  prowlarr-config:
+  jellyfin-config:
+  qbittorrent-config:
+  jellyseerr-config:
 ```
 
 ### Using Ubuntu?
@@ -126,10 +128,10 @@ If you are using Ubuntu you may be facing a lack of storage space. I only had 98
 I ran `lsblk` to find out Ubuntu only allocates 100GB to your root filesystem.
 
 ```bash
-nvme0n1                   259:0    0 476.9G  0 disk 
+nvme0n1                   259:0    0 476.9G  0 disk
 ├─nvme0n1p1               259:1    0     1G  0 part /boot/efi
 ├─nvme0n1p2               259:2    0     2G  0 part /boot
-└─nvme0n1p3               259:3    0 473.9G  0 part 
+└─nvme0n1p3               259:3    0 473.9G  0 part
   └─ubuntu--vg-ubuntu--lv 252:0    0   100G  0 lvm  /
 ```
 
@@ -206,7 +208,7 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     networks:
       mynetwork:
-        ipv4_address: 172.20.0.20 # It should be available IPv4 address in range of docker network `mynetwork` e.g. 172.20.0.2  
+        ipv4_address: 172.20.0.20
 
     environment:
       - PUID=1000
@@ -228,7 +230,7 @@ services:
     container_name: sonarr
     networks:
       mynetwork:
-        ipv4_address: 172.20.0.30 # It should be available IPv4 address in range of docker network `mynetwork` e.g. 172.20.0.2
+        ipv4_address: 172.20.0.30
 
     environment:
       - PUID=1000
@@ -328,11 +330,11 @@ You can optionally add Readarr and/or Calibre if you enjoy books!
 
     networks:
       mynetwork:
-        ipv4_address: 172.20.0.60 # It should be available IPv4 address in range of docker network `mynetwork` e.g. 172.20.0.2
+        ipv4_address: 172.20.0.60
 
     volumes:
-      - /home/keenan/jellyfin/volumes/media-stack_readarr-config/_data:/config
-      - /home/keenan/jellyfin/volumes/media-stack_torrent-downloads/_data:/downloads #optional
+      - /home/user/jellyfin/volumes/media-stack_readarr-config/_data:/config
+      - /home/user/jellyfin/volumes/media-stack_torrent-downloads/_data:/downloads #optional
     ports:
       - 8787:8787
     restart: unless-stopped
@@ -349,8 +351,8 @@ You can optionally add Readarr and/or Calibre if you enjoy books!
     networks:
      - mynetwork
     volumes:
-     - /home/keenan/jellyfin/volumes/media-stack_calibre-config/_data:/config
-     - /home/keenan/jellyfin/volumes/media-stack_torrent-downloads/_data:/data
+     - /home/user/jellyfin/volumes/media-stack_calibre-config/_data:/config
+     - /home/user/jellyfin/volumes/media-stack_torrent-downloads/_data:/data
     ports:
       - 8080:8080
       - 8181:8181
