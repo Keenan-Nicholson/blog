@@ -9,7 +9,7 @@ categories = ['Mini Post']
 
 If you belong to the group of people who can say, "I bought a Raspberry Pi years ago just because they're cool but I have no real use for it," then you are not alone — there is at least one other member 👋.
 
-When not being used to host experimental Discord bots, my Raspberry Pi 4B has largely sits around collecting dust. I probably should migrate most of my software from my home server (a Lenovo ThinkStation P330 Tiny) to my Pi, as I would like that computer to be a dedicated media server. But I often find myself unplugging it to move it around, or corrupting the operating system too much to reliably use it as a host for my finished projects. So here it sits, practically unused year-round.
+When not being used to host experimental Discord bots, my Raspberry Pi 4B largely lays around collecting dust. I probably should migrate most of my software from my home server (a Lenovo ThinkStation P330 Tiny) to my Pi, as I would like that computer to be a dedicated media server. But I often find myself unplugging it to move it around, or corrupting the operating system too much to reliably use it as a host for my finished projects. So here it sits, practically unused year-round.
 
 ## Inspiration
 
