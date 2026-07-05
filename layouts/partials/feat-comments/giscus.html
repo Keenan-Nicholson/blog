@@ -1,0 +1,41 @@
+{{ $params := partial "params-helper.html" . }}
+{{ $theme := "preferred_color_scheme" }}
+{{ $mapping := $params.services.giscus.datamapping | default "og:title" }} 
+{{ $language := $params.services.giscus.language | default "en" }} 
+{{ $lazyload := $params.services.giscus.lazyload | default false }} 
+
+<script>
+        function detectCurrentScheme2() {
+                const defaultTheme = "{{ $params.colorTheme }}";
+                if (localStorage !== null && localStorage.getItem("user-color-scheme")) {
+                        return localStorage.getItem("user-color-scheme");
+                }
+                if (defaultTheme === "dark" || defaultTheme === "light") {
+                        return defaultTheme;
+                }
+                return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+
+        let giscusTheme = detectCurrentScheme2();
+        let giscusAttributes = {
+                src: "https://giscus.app/client.js",
+                "data-repo": "{{- $params.services.giscus.repo -}}",
+                "data-repo-id": "{{- $params.services.giscus.repoid -}}",
+                "data-category": "{{- $params.services.giscus.category -}}",
+                "data-category-id": "{{- $params.services.giscus.categoryid -}}",
+                "data-mapping": "{{ $mapping }}",
+                "data-strict": "0",
+                "data-reactions-enabled": "1",
+                "data-emit-metadata": "0",
+                "data-input-position": "bottom",
+                "data-theme": giscusTheme,
+                "data-lang": "{{ $language }}",
+                crossorigin: "anonymous",
+                lazyload: "{{ $lazyload }}",
+                async: true,
+        };
+        let main = document.querySelector("main");
+        let giscusScript = document.createElement("script");
+        Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+        main.appendChild(giscusScript);
+</script>

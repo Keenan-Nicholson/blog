@@ -1,0 +1,14 @@
+{{ $params := partial "params-helper.html" . }}
+{{ $repo  := $params.services.utterances.repo  }}
+{{ $theme := $params.services.utterances.theme  }}
+{{ $label := $params.services.utterances.label | default "" }}
+{{ $issue := $params.services.utterances.issueterm }}
+
+<script src="https://utteranc.es/client.js"
+        repo="{{ $repo }}"
+        theme="{{ $theme }}"
+        label="{{ $label }}"
+        issue-term="{{ $issue }}"
+        crossorigin="anonymous"
+        async>
+</script>

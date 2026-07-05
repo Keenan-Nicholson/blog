@@ -1,0 +1,7 @@
+{{ $params := partial "params-helper.html" . }}
+{{ $umamiId := $params.services.umami.id }}
+{{ $umamiUrl:= $params.services.umami.url }}
+{{ $datacache:= $params.services.umami.datacache | default "false" }}
+{{ $dnt := $params.services.umami.dnt | default "false" }}
+
+<script async defer data-website-id="{{ $umamiId }}" data-cache="{{ $datacache }}" data-do-not-track="{{ $dnt }}" src="{{ $umamiUrl }}"></script>

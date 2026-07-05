@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{{/* Cache params once for all partials */}}
+
+{{ $params := partial "params-helper.html" . }}
+{{ $dataTheme := "" }}
+
+{{ if and (ne $params.colorTheme "auto") (eq $params.enableColorThemeSwitcher false) }}
+    {{ $dataTheme = $params.colorTheme }}
+{{ end }}
+
+<html lang="{{ site.Params.locale | default site.Language.LanguageCode }}" data-theme="{{ $dataTheme }}">
+<head>
+    {{ block "head" . }}
+        {{ partial "head/head.html" . }}
+    {{ end }}
+</head>
+<body>
+    <a class="skip-main" href="#main">{{ i18n "skipToContent" }}</a>
+    <div class="container">
+        <header class="common-header">
+            {{ block "header" . }}
+                {{ partial "head/header.html" . }}
+            {{ end }}
+        </header>
+        <main id="main" tabindex="-1">
+            {{ block "main" . }}
+                {{ print "No content found for " .Title " with kind " .Kind }}
+                {{ print "Please create a custom layout for this kind, or use single.html as fallback." }}
+            {{ end }}
+        </main>
+        <footer class="common-footer noselect">
+            {{ block "footer" . }}
+                <!-- By default, the footer will be rendered here -->
+                <!-- if user provided custom footer, it will be rendered instead -->
+                <!-- See more: https://gohugo.io/functions/go-template/define/ -->
+                {{ partial "footer.html" . }}
+            {{ end }}
+        </footer>
+    </div>
+</body>
+</html>

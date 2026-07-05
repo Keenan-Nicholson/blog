@@ -1,0 +1,48 @@
+{{ $params := partial "params-helper.html" . }}
+<ul class="social-icons noselect">
+{{ if or (eq $params.enableColorThemeSwitcher true) (eq $params.colorTheme "auto") }}
+    {{ if $params.enableColorThemeSwitcher }}
+        <li>
+            <button id="theme-toggle" type="button" aria-label="{{ i18n "toggleTheme" | default "Toggle color theme" }}">
+            {{ partial "features/font-awesome.html" (dict "iconName" "theme-light" "custom" false) }}
+            </button>
+        </li>
+    {{ end }}
+{{ end }}
+
+{{ $socialData := site.Data.social.social_icons }}
+{{ range $params.socialIcons }}
+    {{ if and (isset $socialData .id) (isset . "url") }}
+        <li>
+            <a {{ printf "href=%q" .url | safeHTMLAttr }} title="{{ humanize .id }}" aria-label="{{ humanize .id }}" rel="me">
+            {{ partial "features/font-awesome.html" (dict "iconName" .id "custom" false) }}
+            </a>
+        </li>
+    {{ else if and (isset $socialData .id) (isset . "name") }}
+        {{ $url := index $socialData .id }}
+        {{ $ref := printf $url .name }}
+        <li>
+            <a {{ printf "href=%q" $ref | safeHTMLAttr }} title="{{ humanize .id }}" aria-label="{{ humanize .id }}" rel="me">
+            {{ partial "features/font-awesome.html" (dict "iconName" .id "custom" false) }}
+            </a>
+        </li>
+    {{ else if (isset . "url") }}
+        <li>
+            <a href="{{ printf .url }}" title="{{ humanize .id }}" aria-label="{{ humanize .id }}" rel="me">
+                {{ partial "features/font-awesome.html" (dict "iconName" .id "custom" true) }}
+            </a>
+        </li>
+    {{ end }}
+{{ end }}
+
+{{ if $params.enableRssIcon }}
+    {{ with site.Home.OutputFormats.Get "rss" -}}
+        <li>
+            <a {{ printf "href=%q" .RelPermalink | safeHTMLAttr }} title="RSS" aria-label="RSS" rel="me">
+            {{ partial "features/font-awesome.html" (dict "iconName" "rss" "custom" false) }}
+            </a>
+        </li>
+    {{ end -}}
+{{ end }}
+
+</ul>
